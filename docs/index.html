@@ -114,12 +114,13 @@ light (stroke color is light color of the palette).
       <section class="section">
         <div class="container">
           <div class="columns is-multiline">
-            <div v-for="i in pal" class="column is-2">
+            <div v-for="i in pal" class="column is-2 has-text-centered">
               <img
                 :src="`https://hub.analythium.io/assets/logo/${i}/logo.png`"
                 :alt="i"
               />
               <p><a :href="`https://hub.analythium.io/assets/logo/${i}/logo.png`" target="_blank"><strong>{{ i }}</strong></a>
+              <br/>
               <small>[<a :href="`https://hub.analythium.io/assets/logo/${i}/none/logo.png`" target="_blank">none</a>|<a :href="`https://hub.analythium.io/assets/logo/${i}/light/logo.png`" target="_blank">light</a>]</small></p>
             </div>
           </div>
