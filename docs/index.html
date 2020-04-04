@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script
+      async
+      src="https://www.googletagmanager.com/gtag/js?id=UA-147215898-3"
+    ></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
+
+      gtag("config", "UA-147215898-3");
+    </script>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <title>Analythium design assets</title>
+    <link
+      rel="shortcut icon"
+      href="https://hub.analythium.io/assets/logo/logo.png"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.11"></script>
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/bulma@0.8.0/css/bulma.min.css"
+    />
+    <script>
+      document.addEventListener("DOMContentLoaded", function() {
+        const pal = ["aggrnyl","agsunset","blues","blues2","blues3","blueyellow","blugrn","bluyl","brwnyl","bugn","bupu","burg","burgyl","darkmint","emrld","gnbu","grays","greens","greens2","greens3","greenyellow","heat","heat2","inferno","lajolla","lightgrays","magenta","mint","oranges","orrd","oryel","oslo","peach","pinkyl","plasma","pubu","pubugn","purd","purp","purpleblue","purpleorange","purples","purples2","purples3","purpleyellow","purpor","rdpu","redblue","redor","redpurple","reds","reds2","reds3","redyellow","sunset","sunsetdark","teal","tealgrn","terrain","terrain2","turku","viridis","ylgn","ylgnbu","ylorbr","ylorrd"];
+        new Vue({
+          el: "#app",
+          data: {
+            pal: pal,
+            rnd: pal[Math.floor(Math.random() * pal.length)]
+          }
+        });
+      });
+    </script>
+  </head>
+  <body>
+    <div id="app">
+
+      <nav class="navbar">
+        <div class="container">
+          <div class="navbar-brand">
+            <a class="navbar-item">
+              <img
+                :src="`https://hub.analythium.io/assets/logo/${rnd}/logo.png`"
+                alt="Logo"
+              />
+            </a>
+            <a class="navbar-item is-size-5 has-text-weight-semibold">
+              Analythium design assets (now displaying {{ rnd }})
+            </a>
+          </div>
+        </div>
+      </nav>
+
+      <section class="section">
+        <div class="container">
+          <div class="columns is-multiline">
+            <div class="column is-12">
+Root URL is <a href="https://hub.analythium.io/assets" target="_blank"><code>https://hub.analythium.io/assets</code></a>.
+        </div>
+            <div class="column is-12">
+Default marks are in <code>/marks/</code> folder.
+        </div>
+            <div class="column is-12">
+Default logo is placed at:
+<a href="https://hub.analythium.io/assets/logo/logo.png" target="_blank"><code>https://hub.analythium.io/assets/logo/logo.png</code></a> and
+<a href="https://hub.analythium.io/assets/logo/logo.svg" target="_blank"><code>https://hub.analythium.io/assets/logo/logo.svg</code></a>.
+        </div>
+            <div class="column is-12">
+Other color variants are at
+<code>https://hub.analythium.io/assets/logo/:color:/logo.:ext:</code>
+where <code>:ext:</code> is svg or png,
+<code>:color:</code> can be any of the following strings:
+{{ pal.join(', ') }} (see listed below).
+        </div>
+            <div class="column is-12">
+Changing the default stroke (stroke color is dark color of the palette)
+can be done as <code>https://hub.analythium.io/assets/logo/:color:/:stroke:/logo.:ext:</code>
+where <code>:stroke:</code> is none (stroke width 0) or
+light (stroke color is light color of the palette).
+        </div>
+    </div>
+    </div>
+      </section>
+
+      <section class="section">
+        <div class="container">
+          <div class="columns is-multiline">
+            <div v-for="i in pal" class="column is-2">
+              <p><a :href="`https://hub.analythium.io/assets/logo/${i}/logo.png`" target="_blank">{{ i }}</a></p>
+              <a :href="`https://hub.analythium.io/assets/logo/${i}/logo.png`" target="_blank"><img
+                :src="`https://hub.analythium.io/assets/logo/${i}/logo.png`"
+                :alt="i"
+              /></a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <footer class="footer">
+        <div class="content has-text-centered">
+          <p id="footer">
+            &copy; 2020
+            <a href="https://www.analythium.io/" target="_blank"
+              >Analythium Solutions</a
+            >
+          </p>
+        </div>
+      </footer>
+
+    </div>
+  </body>
+</html>
