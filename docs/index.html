@@ -32,14 +32,32 @@
     />
     <script>
       document.addEventListener("DOMContentLoaded", function() {
-        const pal = ["aggrnyl","agsunset","blues","blues2","blues3","blueyellow","blugrn","bluyl","brwnyl","bugn","bupu","burg","burgyl","darkmint","emrld","gnbu","grays","greens","greens2","greens3","greenyellow","heat","heat2","inferno","lajolla","lightgrays","magenta","mint","oranges","orrd","oryel","oslo","peach","pinkyl","plasma","pubu","pubugn","purd","purp","purpleblue","purpleorange","purples","purples2","purples3","purpleyellow","purpor","rdpu","redblue","redor","redpurple","reds","reds2","reds3","redyellow","sunset","sunsetdark","teal","tealgrn","terrain","terrain2","turku","viridis","ylgn","ylgnbu","ylorbr","ylorrd"];
         new Vue({
           el: "#app",
           data: {
-            pal: pal,
-            rnd: pal[Math.floor(Math.random() * pal.length)]
+            pal: [],
+            rnd: ''
+          },
+          created: function() {
+            this.fetchData();
+          },
+          methods: {
+            fetchData: function() {
+              var xhr = new XMLHttpRequest();
+              var self = this;
+              xhr.open(
+                "GET",
+                "https://hub.analythium.io/assets/logo/index.json"
+              );
+              xhr.onload = function() {
+                var Pal = JSON.parse(xhr.responseText)
+                self.pal = Pal;
+                self.rnd = Pal[Math.floor(Math.random() * Pal.length)];
+              };
+              xhr.send();
+            }
           }
-        });
+         });
       });
     </script>
   </head>
@@ -81,7 +99,7 @@ Other color variants are at
 <code>https://hub.analythium.io/assets/logo/:color:/logo.:ext:</code>
 where <code>:ext:</code> is svg or png,
 <code>:color:</code> can be any of the following strings:
-{{ pal.join(', ') }} (see listed below).
+{{ pal.join(', ') }} (see listed below and in <a href="https://hub.analythium.io/assets/logo/index.json" target="_blank">this JSON file</a>).
         </div>
             <div class="column is-12">
 Changing the default stroke (stroke color is dark color of the palette)
