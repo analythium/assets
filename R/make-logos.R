@@ -1,5 +1,6 @@
 library(magick)
 library(rsvg)
+library(jsonlite)
 source("logo.R")
 
 view_svg <- function(x, ...) {
@@ -19,6 +20,7 @@ image_write(image_read_svg(f), paste0("../docs/logo/logo.png"))
 pal <- hcl.pals("sequential")
 names(pal) <- tolower(gsub("_", "", gsub("-", "", gsub(" ", "", pal))))
 stopifnot(length(names(pal)) == length(unique(names(pal))))
+writeLines(toJSON(sort(names(pal))), paste0("../docs/logo/index.json"))
 
 for (i in seq_along(pal)) {
   cat(pal[i], "\n")
