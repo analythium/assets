@@ -58,3 +58,109 @@ for (i in seq_along(pal)) {
   writeLines(ll, f)
   image_write(image_read_svg(f), paste0("../docs/logo/", j, "/light/logo.png"))
 }
+
+if (FALSE) {
+
+
+unislug <- function(n) {
+  n <- tolower(n)
+  n <- gsub("%+", "-pct-", n)
+  n <- gsub("\\$+", "-dollars-", n)
+  n <- gsub("\\++", "-plus-", n)
+  n <- gsub("_+", "-", n)
+  n <- gsub("\\*+", "-star-", n)
+  n <- gsub("#+", "-cnt-", n)
+  n <- gsub("&+", "-and-", n)
+  n <- gsub("@+", "-at-", n)
+  n <- gsub("[^a-zA-Z0-9_]+", "-", n)
+  n <- gsub("([A-Z][a-z])", "-\\1", n)
+  n <- tolower(trimws(n))
+  n <- gsub("(^-+|-+$)", "", n)
+  n <- gsub("-+", "-", n)
+  make.unique(n, sep = "-")
+}
+
+## default palette
+PAL0 <- data.frame(
+  id="default",
+  package="none",
+  palette="none",
+  type="none",
+  dark="#000000", mid="#ffef00", light="#ffffff",
+  stringsAsFactors=FALSE)
+
+## base sequential hcl palettes
+PAL1 <- data.frame(
+  package="base",
+  palette=hcl.pals("sequential"),
+  type="sequential",
+  dark="", mid="", light="",
+  stringsAsFactors=FALSE)
+for (i in seq_len(nrow(PAL1))) {
+  ## make a 3-color palette: dark, mid, light
+  col <- hcl.colors(3, PAL1$palette[i])
+  ## lajolla, oslo, turku luminance is reversed
+  ## check luminence and reverse where needed
+  rgb <- col2rgb(col[-2])
+  lum <- colSums(rgb * c(0.2126, 0.7152, 0.0722))
+  if (lum[1] > lum[2])
+    col <- rev(col)
+  PAL1$dark[i] <- col[1L]
+  PAL1$mid[i] <- col[2L]
+  PAL1$light[i] <- col[3L]
+}
+
+## paletteer sequential palettes
+#install.packages("paletteer")
+library(paletteer)
+
+PAL2 <- palettes_c_names[palettes_c_names$type=="sequential",]
+PAL2 <- data.frame(PAL2, dark="", mid="", light="", stringsAsFactors=FALSE)
+for (i in seq_len(nrow(PAL2))) {
+  col <- as.character(
+    paletteer_c(paste0(PAL2$package[i], "::", PAL2$palette[i]), 3))
+  rgb <- col2rgb(col)
+  lum <- colSums(rgb * c(0.2126, 0.7152, 0.0722))
+  col <- col[order(lum)]
+  PAL2$dark[i] <- substr(col[1L], 1, 7)
+  PAL2$mid[i] <- substr(col[2L], 1, 7)
+  PAL2$light[i] <- substr(col[3L], 1, 7)
+}
+
+
+PAL3 <- palettes_d_names[palettes_d_names$type=="sequential",]
+PAL3 <- PAL3[PAL3$length >= 3,]
+PAL3$length <- NULL
+PAL3 <- data.frame(PAL3, dark="", mid="", light="", stringsAsFactors=FALSE)
+for (i in seq_len(nrow(PAL3))) {
+  col <- as.character(
+    paletteer_d(paste0(PAL3$package[i], "::", PAL3$palette[i]), 3))
+  rgb <- col2rgb(col)
+  lum <- colSums(rgb * c(0.2126, 0.7152, 0.0722))
+  col <- col[order(lum)]
+  PAL3$dark[i] <- substr(col[1L], 1, 7)
+  PAL3$mid[i] <- substr(col[2L], 1, 7)
+  PAL3$light[i] <- substr(col[3L], 1, 7)
+}
+
+PAL <- rbind(PAL1, PAL2, PAL3)
+PAL$id <- unislug(paste0(PAL$package, "-", PAL$palette))
+PAL <- rbind(PAL0, PAL[,colnames(PAL0)])
+PAL <- PAL[PAL$dark != PAL$mid,]
+PAL <- PAL[PAL$light != PAL$mid,]
+PAL <- PAL[PAL$dark != PAL$light,]
+
+
+for (i in seq_len(nrow(PAL))) {
+  j <- PAL[i,"id"]
+  cat(j, "\n")
+  flush.console()
+  col <- c(PAL[i,"dark"], PAL[i,"mid"], PAL[i,"light"])
+  ld <- analythium_logo(col[2], col[3], col[1], col[2], col[1], sw=3)
+  f <- paste0("x/", j, ".svg")
+  writeLines(ld, f)
+  image_write(image_read_svg(f), paste0("x/", j, ".png"))
+  unlink(f)
+}
+
+}
