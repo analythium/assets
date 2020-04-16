@@ -10,6 +10,22 @@ view_svg <- function(x, ...) {
   writeLines(x, f)
   image_read_svg(f, ...)
 }
+## https://www.brodieg.com/2019/02/09/favicons-from-the-comfort-of-your-r-session/
+write_ico <- function(im, file) {
+  sizes <- 8 * c(2, 3, 4, 6, 8)
+  img.sizes <- sprintf("%dx%d", sizes, sizes)
+  dir <- tempfile()
+  dir.create(dir)
+  files <- file.path(dir, sprintf("favicon-%s.png", sizes))
+  img.resize <- lapply(img.sizes, image_resize, image=im)
+  invisible(Map(image_write, img.resize, files))
+  list.files(dir)
+  imgs <- image_read(files)
+  ico <- image_convert(imgs, 'ico')
+  image_write(ico, file)
+  unlink(dir, recursive=TRUE)
+  invisible()
+}
 # default logo
 l <- analythium_logo("#ffef00", "#ffffff", "#000000", "#ffef00", "#000000", sw=3)
 view_svg(l, width=400, height=400)
@@ -17,8 +33,7 @@ f <- paste0("../docs/logo/logo.svg")
 writeLines(l, f)
 im <- image_read_svg(f)
 image_write(im, paste0("../docs/logo/logo.png"))
-im <- image_scale(im, "32x32!")
-image_write(im, "../docs/logo/favicon.ico", format = "ico")
+write_ico(im, "../docs/logo/favicon.ico")
 
 ## palettes
 pal <- hcl.pals("sequential")
@@ -69,8 +84,7 @@ for (i in seq_along(pal)) {
   writeLines(ld, f)
   im <- image_read_svg(f)
   image_write(im, paste0("../docs/logo/", j, "/logo.png"))
-  im <- image_scale(im, "32x32!")
-  image_write(im, paste0("../docs/logo/", j, "/favicon.ico"), format = "ico")
+  write_ico(im, paste0("../docs/logo/", j, "/favicon.ico"))
   ## no stroke
   if (!dir.exists(paste0("../docs/logo/", j, "/none")))
     dir.create(paste0("../docs/logo/", j, "/none"))
@@ -78,9 +92,7 @@ for (i in seq_along(pal)) {
   writeLines(ln, f)
   im <- image_read_svg(f)
   image_write(im, paste0("../docs/logo/", j, "/none/logo.png"))
-  im <- image_scale(im, "32x32!")
-  image_write(im, paste0("../docs/logo/", j, "/none/favicon.ico"),
-              format = "ico")
+  write_ico(im, paste0("../docs/logo/", j, "/none/favicon.ico"))
   ## light stroke
   if (!dir.exists(paste0("../docs/logo/", j, "/light")))
     dir.create(paste0("../docs/logo/", j, "/light"))
@@ -88,9 +100,7 @@ for (i in seq_along(pal)) {
   writeLines(ll, f)
   im <- image_read_svg(f)
   image_write(im, paste0("../docs/logo/", j, "/light/logo.png"))
-  im <- image_scale(im, "32x32!")
-  image_write(im, paste0("../docs/logo/", j, "/light/favicon.ico"),
-              format = "ico")
+  write_ico(im, paste0("../docs/logo/", j, "/light/favicon.ico"))
 }
 
 cols <- do.call(rbind, cols)
