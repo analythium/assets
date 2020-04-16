@@ -1,6 +1,7 @@
 library(magick)
 library(rsvg)
 library(jsonlite)
+library(ggsci)
 source("logo.R")
 
 view_svg <- function(x, ...) {
@@ -20,19 +21,38 @@ image_write(image_read_svg(f), paste0("../docs/logo/logo.png"))
 pal <- hcl.pals("sequential")
 names(pal) <- tolower(gsub("_", "", gsub("-", "", gsub(" ", "", pal))))
 stopifnot(length(names(pal)) == length(unique(names(pal))))
+
+pal2 <- c("red", "pink", "purple", "deep-purple",
+  "indigo", "blue", "light-blue", "cyan", "teal", "green", "light-green",
+  "lime", "yellow", "amber", "orange", "deep-orange", "brown", "grey",
+  "blue-grey")
+names(pal2) <- paste0("material-", pal2)
+pal0 <- "default"
+names(pal0) <- pal0
+pal <- c(pal0, pal, pal2)
 writeLines(toJSON(sort(names(pal))), paste0("../docs/logo/index.json"))
 
+cols <- list()
 for (i in seq_along(pal)) {
   cat(pal[i], "\n")
   flush.console()
   ## make a 3-color palette: dark, mid, light
-  col <- hcl.colors(3, pal[i])
+  if (pal[i] == "default") {
+    col <- c("#000000", "#ffef00", "#ffffff")
+  } else {
+    col <- if (startsWith(names(pal)[i], "material"))
+      pal_material(pal[i], reverse=TRUE, n=3)(3) else hcl.colors(3, pal[i])
+  }
   ## lajolla, oslo, turku luminance is reversed
   ## check luminence and reverse where needed
   rgb <- col2rgb(col[-2])
   lum <- colSums(rgb * c(0.2126, 0.7152, 0.0722))
   if (lum[1] > lum[2])
     col <- rev(col)
+  cols[[pal[i]]] <- data.frame(
+    id=pal[i],
+    dark=col[1], mid=col[2], light=col[3],
+    stringsAsFactors=FALSE)
   ## make SVG: no stroke, dark stroke, light stroke
   ln <- analythium_logo(col[2], col[3], col[1], col[2], col[1], sw=0)
   ld <- analythium_logo(col[2], col[3], col[1], col[2], col[1], sw=3)
@@ -58,6 +78,11 @@ for (i in seq_along(pal)) {
   writeLines(ll, f)
   image_write(image_read_svg(f), paste0("../docs/logo/", j, "/light/logo.png"))
 }
+
+cols <- do.call(rbind, cols)
+cols$id <- names(pal)
+rownames(cols) <- NULL
+writeLines(toJSON(cols), paste0("../docs/logo/colors.json"))
 
 if (FALSE) {
 
