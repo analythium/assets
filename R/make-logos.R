@@ -75,6 +75,7 @@ for (i in seq_along(pal)) {
   ln <- analythium_logo(col[2], col[3], col[1], col[2], col[1], sw=0)
   ld <- analythium_logo(col[2], col[3], col[1], col[2], col[1], sw=3)
   ll <- analythium_logo(col[2], col[3], col[1], col[2], col[3], sw=3)
+  lm <- analythium_logo(col[2], col[3], col[1], col[2], col[2], sw=3)
   ## write SVG and PNG files to gh pages
   j <- names(pal)[i]
   if (!dir.exists(paste0("../docs/logo/", j)))
@@ -101,6 +102,14 @@ for (i in seq_along(pal)) {
   im <- image_read_svg(f)
   image_write(im, paste0("../docs/logo/", j, "/light/logo.png"))
   write_ico(im, paste0("../docs/logo/", j, "/light/favicon.ico"))
+  ## medium stroke
+  if (!dir.exists(paste0("../docs/logo/", j, "/mid")))
+    dir.create(paste0("../docs/logo/", j, "/mid"))
+  f <- paste0("../docs/logo/", j, "/mid/logo.svg")
+  writeLines(lm, f)
+  im <- image_read_svg(f)
+  image_write(im, paste0("../docs/logo/", j, "/mid/logo.png"))
+  write_ico(im, paste0("../docs/logo/", j, "/mid/favicon.ico"))
 }
 
 cols <- do.call(rbind, cols)

@@ -104,7 +104,8 @@ where <code>:ext:</code> is svg or png,
             <div class="column is-12">
 Changing the default stroke (stroke color is dark color of the palette)
 can be done as <code>https://hub.analythium.io/assets/logo/:color:/:stroke:/logo.:ext:</code>
-where <code>:stroke:</code> is none (stroke width 0) or
+where <code>:stroke:</code> is none (stroke width 0),
+mid (stroke color is mid color of the palette), or
 light (stroke color is light color of the palette). Replace <code>logo.:ext:</code> with <code>favicon.ico</code> to get corresponding favicon.
         </div>
     </div>
@@ -121,7 +122,7 @@ light (stroke color is light color of the palette). Replace <code>logo.:ext:</co
               />
               <p><a :href="`https://hub.analythium.io/assets/logo/${i}/logo.png`" target="_blank"><strong>{{ i }}</strong></a>
               <br/>
-              <small>[<a :href="`https://hub.analythium.io/assets/logo/${i}/none/logo.png`" target="_blank">none</a>|<a :href="`https://hub.analythium.io/assets/logo/${i}/light/logo.png`" target="_blank">light</a>]</small></p>
+              <small>[<a :href="`https://hub.analythium.io/assets/logo/${i}/none/logo.png`" target="_blank">none</a>|<a :href="`https://hub.analythium.io/assets/logo/${i}/mid/logo.png`" target="_blank">mid</a>|<a :href="`https://hub.analythium.io/assets/logo/${i}/light/logo.png`" target="_blank">light</a>]</small></p>
             </div>
           </div>
         </div>
