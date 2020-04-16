@@ -15,7 +15,10 @@ l <- analythium_logo("#ffef00", "#ffffff", "#000000", "#ffef00", "#000000", sw=3
 view_svg(l, width=400, height=400)
 f <- paste0("../docs/logo/logo.svg")
 writeLines(l, f)
-image_write(image_read_svg(f), paste0("../docs/logo/logo.png"))
+im <- image_read_svg(f)
+image_write(im, paste0("../docs/logo/logo.png"))
+im <- image_scale(im, "32x32!")
+image_write(im, "../docs/logo/favicon.ico", format = "ico")
 
 ## palettes
 pal <- hcl.pals("sequential")
@@ -64,19 +67,30 @@ for (i in seq_along(pal)) {
   ## default (dark) stroke
   f <- paste0("../docs/logo/", j, "/logo.svg")
   writeLines(ld, f)
-  image_write(image_read_svg(f), paste0("../docs/logo/", j, "/logo.png"))
+  im <- image_read_svg(f)
+  image_write(im, paste0("../docs/logo/", j, "/logo.png"))
+  im <- image_scale(im, "32x32!")
+  image_write(im, paste0("../docs/logo/", j, "/favicon.ico"), format = "ico")
   ## no stroke
   if (!dir.exists(paste0("../docs/logo/", j, "/none")))
     dir.create(paste0("../docs/logo/", j, "/none"))
   f <- paste0("../docs/logo/", j, "/none/logo.svg")
   writeLines(ln, f)
-  image_write(image_read_svg(f), paste0("../docs/logo/", j, "/none/logo.png"))
+  im <- image_read_svg(f)
+  image_write(im, paste0("../docs/logo/", j, "/none/logo.png"))
+  im <- image_scale(im, "32x32!")
+  image_write(im, paste0("../docs/logo/", j, "/none/favicon.ico"),
+              format = "ico")
   ## light stroke
   if (!dir.exists(paste0("../docs/logo/", j, "/light")))
     dir.create(paste0("../docs/logo/", j, "/light"))
   f <- paste0("../docs/logo/", j, "/light/logo.svg")
   writeLines(ll, f)
-  image_write(image_read_svg(f), paste0("../docs/logo/", j, "/light/logo.png"))
+  im <- image_read_svg(f)
+  image_write(im, paste0("../docs/logo/", j, "/light/logo.png"))
+  im <- image_scale(im, "32x32!")
+  image_write(im, paste0("../docs/logo/", j, "/light/favicon.ico"),
+              format = "ico")
 }
 
 cols <- do.call(rbind, cols)
