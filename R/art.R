@@ -1,38 +1,7 @@
-https://github.com/djnavarro/jasmines
-https://github.com/thomasp85/ambient
-
-remotes::install_github("djnavarro/scrawl")
-remotes::install_github("djnavarro/flametree")
-
-library(scrawl)
-
-dat <- scrawl_build(n_steps = 100)
-pic <- scrawl_plot(dat)
-
-plot(pic)
-
-library(flametree)
-library(ggplot2)
-
-dat <- flametree_grow(seed = 4, time = 13) # data structure
-img <- flametree_plot(tree = dat)          # ggplot object
-plot(img)
-
-pixels <- 5000
-
-ggsave(
-  filename = "flametree.png",
-  plot = img,
-  width = pixels/300,
-  height = pixels/300,
-  dpi = 300
-)
-
-
 library(tidyverse)
-library(here)
+library(magick)
 
-
+# functions from https://github.com/djnavarro/ashtree
 # helper functions --------------------------------------------------------
 
 radians <- function(degree) {
@@ -54,9 +23,6 @@ adjust_x <- function(x, scale, angle) {
 adjust_y <- function(y, scale, angle) {
   y + scale * sin(radians(angle))
 }
-
-
-
 
 # ashtree functions -------------------------------------------------------
 
@@ -92,7 +58,6 @@ grow_from <- function(tips, settings) {
   return(new_growth)
 }
 
-
 grow_many <- function(tips, settings) {
 
   # read off the relevant settings
@@ -101,7 +66,6 @@ grow_many <- function(tips, settings) {
   new_tips <- map_dfr(1:splits, ~grow_from(tips, settings))
   return(new_tips)
 }
-
 
 grow_tree <- function(settings) {
 
@@ -117,7 +81,6 @@ grow_tree <- function(settings) {
 
   return(tree)
 }
-
 
 draw_tree <- function(tree) {
 
@@ -137,7 +100,7 @@ draw_tree <- function(tree) {
   return(pic)
 }
 
-# do stuff ----------------------------------------------------------------
+# generate a tree ------------------------------------
 
 settings <- list(
   seed = 1,
@@ -150,17 +113,8 @@ settings <- list(
 set.seed(settings$seed)
 
 tree <- grow_tree(settings)
-pic <- draw_tree(tree)
 
-pixels <- 5000
-
-ggsave(
-  filename = "ashtree.png",
-  plot = pic,
-  width = pixels/300,
-  height = pixels/300,
-  dpi = 300
-)
+# simple base plot to draw the tree ----------------------
 
 base_plot <- function(tree, subset=NULL, xlim=NULL, ylim=NULL, add=FALSE, ...) {
   if (is.null(xlim))
@@ -174,51 +128,31 @@ base_plot <- function(tree, subset=NULL, xlim=NULL, ylim=NULL, add=FALSE, ...) {
   invisible(tree)
 }
 
-settings <- list(
-  seed = 1,
-  cycles = 14,
-  splits = 2,
-  scales = c(0.9, 1, 1.1),
-  angles = c(-25, -10, -5, 5, 10, 20, 35)
-)
-set.seed(settings$seed)
-tree <- grow_tree(settings)
+# save images ------------------------------
 
-base_plot(tree)
-
-k <- 10
-bg <- 1
-col <- hcl.colors(k)
-lwd <- 0.5 + 2 * 1/(1:k)^2
-br <- exp(seq(0, log(nrow(tree)), length.out = k+2))
-br <- round(br[-1])
-br[1] <- 0
-ii <- as.integer(cut(seq_len(nrow(tree)), br))
-
-op <- par(mar=c(0,0,0,0), bg=1)
-base_plot(tree, col="white")
-for (i in 1:10) {
-  base_plot(tree[ii==i,], col=col[i], add=TRUE, lwd=lwd[i])
-}
-par(op)
-
-library(magick)
-k <- 20
+k <- 20 # number of images to save
 files <- sprintf("image-%s.png", 0:(2*k))
+
+# background color
 bg <- 1
-#col <- hcl.colors(k, "Light Grays")
+# color palette to display along the branches
 col <- colorRampPalette(c("darkgrey", "grey", "lightgrey", "orange"))(k)
-#col <- c(rep(col[5], 5), col[-(1:5)])
-lwd <- rep(0.5, k) # 0.5 + 1 * 1/(1:k)^2
-br <- exp(seq(0, log(nrow(tree)), length.out = k+2))
+
+lwd <- rep(0.5, k) # line widths
+br <- exp(seq(0, log(nrow(tree)), length.out = k+2)) # breaks
 br <- round(br[-1])
 br[1] <- 0
 ii <- as.integer(cut(seq_len(nrow(tree)), br))
+
+# 1st image is background only, i.e. no tree
 png(files[1])
 op <- par(mar=c(0,0,0,0), bg=bg)
 base_plot(tree, col=bg)
 par(op)
 dev.off()
+
+# save images for the growing tree:
+# draw branches with orange color at the tips
 for (j in 1:k) {
   png(files[j+1])
   op <- par(mar=c(0,0,0,0), bg=bg)
@@ -231,6 +165,9 @@ for (j in 1:k) {
   par(op)
   dev.off()
 }
+
+# save images for fade-out:
+# all the orange fades away to leave a grey tree behind
 for (j in 1:k) {
   png(files[j+k+1])
   op <- par(mar=c(0,0,0,0), bg=bg)
@@ -242,8 +179,9 @@ for (j in 1:k) {
   par(op)
   dev.off()
 }
-img <- image_read(files)
-img3 <- image_animate(img, 10, loop=1, optimize=TRUE)
-image_write(img3, "tree.gif")
-unlink(files)
+
+img <- image_read(files) # read in images
+img3 <- image_animate(img, 10, loop=1, optimize=TRUE) # animate
+image_write(img3, "tree.gif") # save gif
+unlink(files) # clean up png files
 
