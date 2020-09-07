@@ -27,13 +27,36 @@ write_ico <- function(im, file) {
   invisible()
 }
 # default logo
-l <- analythium_logo("#ffef00", "#ffffff", "#000000", "#ffef00", "#000000", sw=3)
-view_svg(l, width=400, height=400)
+#l <- analythium_logo("#ffef00", "#ffffff", "#000000", "#ffef00", "#000000", sw=3)
+#view_svg(l, width=400, height=400)
+#f <- paste0("../docs/logo/logo.svg")
+#writeLines(l, f)
+#im <- image_read_svg(f)
+#image_write(im, paste0("../docs/logo/logo.png"))
+#write_ico(im, "../docs/logo/favicon.ico")
+
+col <- c(dark="#000000", mid="#ffd700", light="#ffffff")
+ld <- analythium_logo(col[2], col[3], col[1], col[2], col[1], sw=3)
+ll <- analythium_logo(col[2], col[3], col[1], col[2], col[3], sw=3)
+lm <- analythium_logo(col[2], col[3], col[1], col[2], col[2], sw=3)
+
+## default (dark) stroke
 f <- paste0("../docs/logo/logo.svg")
-writeLines(l, f)
+writeLines(ld, f)
 im <- image_read_svg(f)
 image_write(im, paste0("../docs/logo/logo.png"))
-write_ico(im, "../docs/logo/favicon.ico")
+write_ico(im, paste0("../docs/logo/favicon.ico"))
+## light stroke
+f <- paste0("../docs/logo/logo-light.svg")
+writeLines(ll, f)
+im <- image_read_svg(f)
+image_write(im, paste0("../docs/logo/logo-light.png"))
+## medium stroke
+f <- paste0("../docs/logo/logo-mid.svg")
+writeLines(lm, f)
+im <- image_read_svg(f)
+image_write(im, paste0("../docs/logo/logo-mid.png"))
+
 
 ## palettes
 pal <- hcl.pals("sequential")
@@ -222,3 +245,55 @@ for (i in seq_len(nrow(PAL))) {
 }
 
 }
+
+
+## Material colors
+
+an_palette <- structure(
+  c("#ffcdd2", "#f8bbd0", "#e1bee7", "#d1c4e9", "#c5cae9",
+  "#bbdefb", "#b3e5fc", "#b2ebf2", "#b2dfdb", "#c8e6c9", "#dcedc8",
+  "#f0f4c3", "#fff9c4", "#ffecb3", "#ffe0b2", "#ffccbc", "#d7ccc8",
+  "#f5f5f5", "#cfd8dc", "#f44336", "#e91e63", "#9c27b0", "#673ab7",
+  "#3f51b5", "#2196f3", "#03a9f4", "#00bcd4", "#009688", "#4caf50",
+  "#8bc34a", "#cddc39", "#ffeb3b", "#ffc107", "#ff9800", "#ff5722",
+  "#795548", "#9e9e9e", "#607d8b", "#b71c1c", "#880e4f", "#4a148c",
+  "#311b92", "#1a237e", "#0d47a1", "#01579b", "#006064", "#004d40",
+  "#1b5e20", "#33691e", "#827717", "#f57f17", "#ff6f00", "#e65100",
+  "#bf360c", "#3e2723", "#212121", "#263238"), .Dim = c(19L, 3L
+  ), .Dimnames = list(c("red", "pink", "purple", "deeppurple",
+  "indigo", "blue", "lightblue", "cyan", "teal", "green", "lightgreen",
+  "lime", "yellow", "amber", "orange", "deeporange", "brown", "grey",
+  "bluegrey"), c("light", "mid", "dark")))
+
+show_pal <- function() {
+  op <- par(mar=c(4,8,4,4))
+  on.exit(par(op))
+  image(
+    1:ncol(an_palette),
+    1:nrow(an_palette),
+    t(array(1:length(an_palette), dim(an_palette))),
+    col=as.character(an_palette[nrow(an_palette):1,]), axes=FALSE, ann=FALSE)
+  axis(2, 1:nrow(an_palette), rev(rownames(an_palette)), lwd=0, las=1)
+  axis(3, 1:ncol(an_palette), colnames(an_palette), lwd=0, las=1)
+  text(as.numeric(col(an_palette)), as.numeric(row(an_palette)),
+    as.character(an_palette[nrow(an_palette):1,]),
+    col=c("darkgrey", "grey", "white")[as.numeric(col(an_palette))], cex=0.8)
+  invisible(an_palette)
+}
+show_pal()
+
+bc <- list(dark="#616161", mid="#ffef00", light="#ffffff")
+
+bc <- list(dark="#000000", mid="#ffd700", light="#ffffff")
+
+l <- analythium_logo(bc$mid, bc$light, bc$dark, bc$mid, bc$dark, sw=4)
+view_svg(l, width=400, height=400)
+
+f <- tempfile()
+writeLines(l, f)
+im <- image_read_svg(f)
+unlink(f)
+image_write(im, "~/Desktop/logo-gr-yl.png")
+
+
+
