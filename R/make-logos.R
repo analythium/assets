@@ -297,3 +297,14 @@ image_write(im, "~/Desktop/logo-gr-yl.png")
 
 
 
+## hosting shiny color palette
+
+col <- c(dark="#5544b6", mid="#20f4a2", light="#ffffff")
+ld <- analythium_logo(col[2], col[3], col[1], col[2], col[1], sw=3)
+ll <- analythium_logo(col[2], col[3], col[1], col[2], col[3], sw=3)
+lm <- analythium_logo(col[2], col[3], col[1], col[2], col[2], sw=3)
+
+writeLines(ld, "~/Desktop/asinc/shiny-hosting/asinc-pugr.svg")
+im <- image_read_svg("~/Desktop/asinc/shiny-hosting/asinc-pugr.svg")
+image_write(im, "~/Desktop/asinc/shiny-hosting/asinc-pugr.png")
+
