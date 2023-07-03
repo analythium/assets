@@ -101,7 +101,7 @@ fun3 <- function(n=5, pad=0.5, bg="grey") {
 
 set.seed(0)
 for (i in 1:99) {
-    png(paste0("docs/random/avarat-", if (i < 10) "0" else "", i, ".png"), 200, 200)
+    png(paste0("docs/random/avatar-", if (i < 10) "0" else "", i, ".png"), 200, 200)
     fun3()
     dev.off()
 }
