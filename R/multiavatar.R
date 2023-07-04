@@ -646,7 +646,7 @@ multiavatar = function(string = '', sansEnv = FALSE, ver = NULL) {
     if (nchar(string) < 1)
         return('')
 
-    sha256Hash <- digest::digest(enc2utf8(string), algo="sha256", serialize=FALSE)
+    sha256Hash = digest::digest(enc2utf8(string), algo="sha256", serialize=FALSE)
 
     sha256Numbers = gsub('\\D', '', sha256Hash)
 
