@@ -106,3 +106,35 @@ for (i in 1:99) {
     dev.off()
 }
 
+# Other MIT licensed libraries
+# https://github.com/draftbit/avatar-generator/tree/master/static/avatars
+# 
+
+base <- "https://raw.githubusercontent.com/draftbit/avatar-generator/master/static/avatars/"
+links <- c(
+    "Background/pink.svg",
+    "Skin/head-skin3.svg",
+    "Body/round.svg",
+    "Hair/curlybun.svg",
+    "FacialHair/beardmustache-copper.svg",
+    "Nose/mediumround.svg",
+    "Eyes/glasses.svg",
+    "Mouth/pacifier.svg"
+)
+
+parts0 <- lapply(links, \(z) {
+    readLines(url(paste0(base, z)), warn = FALSE)
+})
+parts <- lapply(parts0, \(z) {
+    x <- gsub("<svg(.*?)>", "", z)
+    x <- gsub("</svg>", "", x)
+    x
+})
+x = "<svg height=\"64\" viewBox=\"0 0 64 64\" width=\"64\" xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\">"
+for (z in parts) {
+    x <- paste0(x, z)
+}
+x = paste0(x, '</svg>')
+
+writeLines(x, "aaa.svg")
+
