@@ -642,6 +642,42 @@ svg_list <- list(
     <path d="M5.00,5.00 A2.50,2.50 0.00 0 1 7.50,7.50" style="stroke:black;stroke-width:1;fill:none;stroke-linecap:round" />
     <path d="M7.50,7.50 A2.50,2.50 0.00 0 0 10.00,5.00" style="stroke:black;stroke-width:1;fill:none;stroke-linecap:round" />
 </g>'
+),
+"squares" = c(
+'<g id="0"></g>',
+'<g id="1"><rect x="0.00" y="0.00" width="5.00" height="5.00" style="fill:black" /></g>',
+'<g id="2"><rect x="0.00" y="5.00" width="5.00" height="5.00" style="fill:black" /></g>',
+'<g id="3"><rect x="5.00" y="0.00" width="5.00" height="5.00" style="fill:black" /></g>',
+'<g id="4"><rect x="5.00" y="5.00" width="5.00" height="5.00" style="fill:black" /></g>',
+'<g id="5"><rect x="0.00" y="0.00" width="5.00" height="5.00" style="fill:black" /><rect x="0.00" y="5.00" width="5.00" height="5.00" style="fill:black" /></g>',
+'<g id="6"><rect x="0.00" y="0.00" width="5.00" height="5.00" style="fill:black" /><rect x="5.00" y="0.00" width="5.00" height="5.00" style="fill:black" /></g>',
+'<g id="7"><rect x="0.00" y="0.00" width="5.00" height="5.00" style="fill:black" /><rect x="5.00" y="5.00" width="5.00" height="5.00" style="fill:black" /></g>',
+'<g id="8"><rect x="0.00" y="5.00" width="5.00" height="5.00" style="fill:black" /><rect x="5.00" y="0.00" width="5.00" height="5.00" style="fill:black" /></g>',
+'<g id="9"><rect x="0.00" y="5.00" width="5.00" height="5.00" style="fill:black" /><rect x="5.00" y="5.00" width="5.00" height="5.00" style="fill:black" /></g>',
+'<g id="a"><rect x="5.00" y="0.00" width="5.00" height="5.00" style="fill:black" /><rect x="5.00" y="5.00" width="5.00" height="5.00" style="fill:black" /></g>',
+'<g id="b"><rect x="0.00" y="0.00" width="5.00" height="5.00" style="fill:black" /><rect x="0.00" y="5.00" width="5.00" height="5.00" style="fill:black" /><rect x="5.00" y="0.00" width="5.00" height="5.00" style="fill:black" /></g>',
+'<g id="c"><rect x="0.00" y="0.00" width="5.00" height="5.00" style="fill:black" /><rect x="0.00" y="5.00" width="5.00" height="5.00" style="fill:black" /><rect x="5.00" y="5.00" width="5.00" height="5.00" style="fill:black" /></g>',
+'<g id="d"><rect x="0.00" y="0.00" width="5.00" height="5.00" style="fill:black" /><rect x="5.00" y="0.00" width="5.00" height="5.00" style="fill:black" /><rect x="5.00" y="5.00" width="5.00" height="5.00" style="fill:black" /></g>',
+'<g id="e"><rect x="0.00" y="5.00" width="5.00" height="5.00" style="fill:black" /><rect x="5.00" y="0.00" width="5.00" height="5.00" style="fill:black" /><rect x="5.00" y="5.00" width="5.00" height="5.00" style="fill:black" /></g>',
+'<g id="f"><rect x="0.00" y="0.00" width="10.00" height="10.00" style="fill:black" /></g>'
+),
+"triangles" = c(
+'<g id="0"></g>',
+'<g id="1"><polygon points="0,0 0,5 5,0" style="fill:black" /></g>',
+'<g id="2"><polygon points="0,10 0,5 5,10" style="fill:black" /></g>',
+'<g id="3"><polygon points="10,0 10,5 5,0" style="fill:black" /></g>',
+'<g id="4"><polygon points="10,10 10,5 5,10" style="fill:black" /></g>',
+'<g id="5"><polygon points="0,0 0,5 5,0" style="fill:black" /><polygon points="0,10 0,5 5,10" style="fill:black" /></g>',
+'<g id="6"><polygon points="0,0 0,5 5,0" style="fill:black" /><polygon points="10,0 10,5 5,0" style="fill:black" /></g>',
+'<g id="7"><polygon points="0,0 0,5 5,0" style="fill:black" /><polygon points="10,10 10,5 5,10" style="fill:black" /></g>',
+'<g id="8"><polygon points="0,10 0,5 5,10" style="fill:black" /><polygon points="10,0 10,5 5,0" style="fill:black" /></g>',
+'<g id="9"><polygon points="0,10 0,5 5,10" style="fill:black" /><polygon points="10,10 10,5 5,10" style="fill:black" /></g>',
+'<g id="a"><polygon points="10,0 10,5 5,0" style="fill:black" /><polygon points="10,10 10,5 5,10" style="fill:black" /></g>',
+'<g id="b"><polygon points="0,0 0,5 5,0" style="fill:black" /><polygon points="0,10 0,5 5,10" style="fill:black" /><polygon points="10,0 10,5 5,0" style="fill:black" /></g>',
+'<g id="c"><polygon points="0,0 0,5 5,0" style="fill:black" /><polygon points="0,10 0,5 5,10" style="fill:black" /><polygon points="10,10 10,5 5,10" style="fill:black" /></g>',
+'<g id="d"><polygon points="0,0 0,5 5,0" style="fill:black" /><polygon points="10,0 10,5 5,0" style="fill:black" /><polygon points="10,10 10,5 5,10" style="fill:black" /></g>',
+'<g id="e"><polygon points="0,10 0,5 5,10" style="fill:black" /><polygon points="10,0 10,5 5,0" style="fill:black" /><polygon points="10,10 10,5 5,10" style="fill:black" /></g>',
+'<g id="f"><polygon points="0,0 0,5 5,0" style="fill:black" /><polygon points="0,10 0,5 5,10" style="fill:black" /><polygon points="10,0 10,5 5,0" style="fill:black" /><polygon points="10,10 10,5 5,10" style="fill:black" /></g>'
 )
 )
 
@@ -669,13 +705,88 @@ fun5 <- function(string, type="default", n=8, col="black", bg="white") {
             x <- i * tileSize + border
             y <- j * tileSize + border
             v <- paste0('<use x="', x, '" y="', y, '" xlink:href="#', g[i,j], '" />')
+            v <- gsub("black", col, v)
             svg <- c(svg, v)
         }
     }
     svg <- c(svg, '</svg>')
     svg <- paste0(svg, collapse="")
     svg <- gsub("black", col, svg)
-
     svg
 }
+
+writeLines(fun5("aaa", "squares", col="blue"), "test.svg")
+writeLines(fun5("aaa", "triangles", col="blue"), "test.svg")
+writeLines(fun5("aaa", "default", col="blue"), "test.svg")
+writeLines(fun5("aaa", "dots", col="blue"), "test.svg")
+writeLines(fun5("aaa", "lightning", col="blue"), "test.svg")
+writeLines(fun5("aaa", "stitching", col="blue"), "test.svg")
+writeLines(fun5("aaa", "trees", col="blue"), "test.svg")
 writeLines(fun5("aaa", "waves", col="blue"), "test.svg")
+
+"default"   "dots"      "lightning" "stitching" "trees"     "waves"     "squares"   "triangles"
+
+# https://drhus.github.io/awesome-identicons/
+
+# https://github.com/donpark/identicon/blob/master/identicon-canvas/identicon_canvas.js
+
+# for rect: x, y, w=h, rotation
+
+
+fun6 <- function(x) {
+
+    f <- function(x, y, r, col) {
+        paste0('<circle cx="', x, '" cy="', y, '" r="', r, '" style="fill:', col, '" />')
+    }
+    w <- 100
+    p <- 0
+    # bg <- "#777777"
+    get_hash <- function(x) {
+        hash <- digest::digest(enc2utf8(x), algo="sha256", serialize=FALSE)
+        hash <- sapply(seq_len(nchar(hash)), function(z) substr(hash, z, z))
+        sapply(hash, function(z) which(c(0:9, letters[1:6]) == z))
+    }
+    hash <- get_hash(x)
+    m <- matrix(hash, length(hash)/4, 4)
+    m <- (m-1)/15
+
+    bg <- paste0(c("#", names(hash)[1:6]), collapse="")
+    svg <- c('<svg width="', w+2*p, '" height="', w+2*p, '" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">',
+        '<rect x="0.00" y="0.00" width="', w+2*p, '" height="', w+2*p, '" style="stroke:none;fill:', bg, '" />')
+    for (i in 1:nrow(m)) {
+        v <- f(w*m[i,1]+p, w*m[i,2]+p, w*m[i,3]/5+w*0.1, hcl(360 * m[i,4], 95, 45, alpha=1))
+        svg <- c(svg, v)
+    }
+    paste0(c(svg, '</svg>'), collapse="")
+}
+
+fun7 <- function(x) {
+
+    f <- function(x, y, r, col, a=45) {
+        paste0('<rect x="', x-r/2, '" y="', y-r/2, '" width="', r, '" height="', r, '" transform="rotate(', a, " ", x, " ", y, ')" style="fill:', col, '" />')
+        # paste0('<circle cx="', x, '" cy="', y, '" r="', r, '" style="fill:', col, '" />')
+    }
+    w <- 100
+    p <- w/10
+    # bg <- "#777777"
+    get_hash <- function(x) {
+        hash <- digest::digest(enc2utf8(x), algo="sha256", serialize=FALSE)
+        hash <- sapply(seq_len(nchar(hash)), function(z) substr(hash, z, z))
+        sapply(hash, function(z) which(c(0:9, letters[1:6]) == z))
+    }
+    hash <- get_hash(x)
+    m <- matrix(hash, length(hash)/4, 4)
+    m <- (m-1)/15
+
+    bg <- paste0(c("#", names(hash)[1:6]), collapse="")
+    svg <- c('<svg width="', w+2*p, '" height="', w+2*p, '" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">',
+        '<rect x="0.00" y="0.00" width="', w+2*p, '" height="', w+2*p, '" style="stroke:none;fill:', bg, '" />')
+    for (i in 1:nrow(m)) {
+        v <- f(w*m[i,1]+p, w*m[i,2]+p, 0.5*w*m[i,3]+0.5*w, hcl(360 * m[i,4], 95, 45, alpha=0.5))
+        svg <- c(svg, v)
+    }
+    paste0(c(svg, '</svg>'), collapse="")
+}
+
+writeLines(fun7("qwerty"), "test.svg")
+writeLines(fun7("s"), "test.svg")

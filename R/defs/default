@@ -1,0 +1,16 @@
+<g id="0"></g>
+<g id="1"><line x1="0.00" y1="0.00" x2="10.00" y2="10.00" style="stroke:black;stroke-width:1;stroke-linecap:round" /></g>
+<g id="2"><line x1="0.00" y1="10.00" x2="10.00" y2="0.00" style="stroke:black;stroke-width:1;stroke-linecap:round" /></g>
+<g id="3"><line x1="0.00" y1="0.00" x2="0.00" y2="10.00" style="stroke:black;stroke-width:1;stroke-linecap:round" /><line x1="10.00" y1="0.00" x2="10.00" y2="10.00" style="stroke:black;stroke-width:1;stroke-linecap:round" /></g>
+<g id="4"><line x1="0.00" y1="0.00" x2="10.00" y2="0.00" style="stroke:black;stroke-width:1;stroke-linecap:round" /><line x1="0.00" y1="10.00" x2="10.00" y2="10.00" style="stroke:black;stroke-width:1;stroke-linecap:round" /></g>
+<g id="5"><line x1="0.00" y1="0.00" x2="10.00" y2="10.00" style="stroke:black;stroke-width:1;stroke-linecap:round" /><line x1="0.00" y1="10.00" x2="10.00" y2="0.00" style="stroke:black;stroke-width:1;stroke-linecap:round" /></g>
+<g id="6"><line x1="0.00" y1="10.00" x2="5.00" y2="5.00" style="stroke:black;stroke-width:1;stroke-linecap:round" /><line x1="5.00" y1="5.00" x2="10.00" y2="10.00" style="stroke:black;stroke-width:1;stroke-linecap:round" /></g>
+<g id="7"><line x1="0.00" y1="0.00" x2="5.00" y2="5.00" style="stroke:black;stroke-width:1;stroke-linecap:round" /><line x1="5.00" y1="5.00" x2="10.00" y2="0.00" style="stroke:black;stroke-width:1;stroke-linecap:round" /></g>
+<g id="8"><line x1="5.00" y1="5.00" x2="10.00" y2="0.00" style="stroke:black;stroke-width:1;stroke-linecap:round" /><line x1="5.00" y1="5.00" x2="10.00" y2="10.00" style="stroke:black;stroke-width:1;stroke-linecap:round" /></g>
+<g id="9"><line x1="0.00" y1="0.00" x2="5.00" y2="5.00" style="stroke:black;stroke-width:1;stroke-linecap:round" /><line x1="0.00" y1="10.00" x2="5.00" y2="5.00" style="stroke:black;stroke-width:1;stroke-linecap:round" /></g>
+<g id="a"><path d="M0.00,0.00 A5.00,5.00 0.00 0 0 10.00,0.00" style="stroke:black;stroke-width:1;fill:none;stroke-linecap:round" /><path d="M0.00,10.00 A5.00,5.00 0.00 0 1 10.00,10.00" style="stroke:black;stroke-width:1;fill:none;stroke-linecap:round" /></g>
+<g id="b"><path d="M0.00,10.00 A5.00,5.00 0.00 0 1 10.00,10.00" style="stroke:black;stroke-width:1;fill:none;stroke-linecap:round" /></g>
+<g id="c"><path d="M0.00,0.00 A5.00,5.00 0.00 0 0 10.00,0.00" style="stroke:black;stroke-width:1;fill:none;stroke-linecap:round" /></g>
+<g id="d"><path d="M0.00,0.00 A5.00,5.00 0.00 0 1 0.00,10.00" style="stroke:black;stroke-width:1;fill:none;stroke-linecap:round" /><path d="M10.00,0.00 A5.00,5.00 0.00 0 0 10.00,10.00" style="stroke:black;stroke-width:1;fill:none;stroke-linecap:round" /></g>
+<g id="e"><path d="M0.00,0.00 A5.00,5.00 0.00 0 1 0.00,10.00" style="stroke:black;stroke-width:1;fill:none;stroke-linecap:round" /></g>
+<g id="f"><path d="M10.00,0.00 A5.00,5.00 0.00 0 0 10.00,10.00" style="stroke:black;stroke-width:1;fill:none;stroke-linecap:round" /></g>
