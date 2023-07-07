@@ -678,6 +678,25 @@ svg_list <- list(
 '<g id="d"><polygon points="0,0 0,5 5,0" style="fill:black" /><polygon points="10,0 10,5 5,0" style="fill:black" /><polygon points="10,10 10,5 5,10" style="fill:black" /></g>',
 '<g id="e"><polygon points="0,10 0,5 5,10" style="fill:black" /><polygon points="10,0 10,5 5,0" style="fill:black" /><polygon points="10,10 10,5 5,10" style="fill:black" /></g>',
 '<g id="f"><polygon points="0,0 0,5 5,0" style="fill:black" /><polygon points="0,10 0,5 5,10" style="fill:black" /><polygon points="10,0 10,5 5,0" style="fill:black" /><polygon points="10,10 10,5 5,10" style="fill:black" /></g>'
+),
+"pies" = c(
+'<g id="0"></g>',
+'<g id="1">',
+'<path d="M 10,0 L 10,5 A 5 5 0 0 1 5 0 Z" /></g>',
+'<g id="2"><path d="M 0,10 L 0,5 A 5 5 0 0 1 5 10 Z" /></g>',
+'<g id="3"><path d="M 10,10 L 5,10 A 5 5 0 0 1 10 5 Z" /></g>',
+'<g id="4"><path d="M 0,0 L 5,0 A 5 5 0 0 1 0 5 Z" /></g>',
+'<g id="5"><path d="M 10,0 L 10,5 A 5 5 0 0 1 5 0 Z" /><path d="M 0,10 L 0,5 A 5 5 0 0 1 5 10 Z" /></g>',
+'<g id="6"><path d="M 10,0 L 10,5 A 5 5 0 0 1 5 0 Z" /><path d="M 10,10 L 5,10 A 5 5 0 0 1 10 5 Z" /></g>',
+'<g id="7"><path d="M 10,0 L 10,5 A 5 5 0 0 1 5 0 Z" /><path d="M 0,0 L 5,0 A 5 5 0 0 1 0 5 Z" /></g>',
+'<g id="8"><path d="M 0,10 L 0,5 A 5 5 0 0 1 5 10 Z" /><path d="M 10,10 L 5,10 A 5 5 0 0 1 10 5 Z" /></g>',
+'<g id="9"><path d="M 0,10 L 0,5 A 5 5 0 0 1 5 10 Z" /><path d="M 0,0 L 5,0 A 5 5 0 0 1 0 5 Z" /></g>',
+'<g id="a"><path d="M 10,10 L 5,10 A 5 5 0 0 1 10 5 Z" /><path d="M 0,0 L 5,0 A 5 5 0 0 1 0 5 Z" /></g>',
+'<g id="b"><path d="M 10,0 L 10,5 A 5 5 0 0 1 5 0 Z" /><path d="M 0,10 L 0,5 A 5 5 0 0 1 5 10 Z" /><path d="M 10,10 L 5,10 A 5 5 0 0 1 10 5 Z" /></g>',
+'<g id="c"><path d="M 10,0 L 10,5 A 5 5 0 0 1 5 0 Z" /><path d="M 0,10 L 0,5 A 5 5 0 0 1 5 10 Z" /><path d="M 0,0 L 5,0 A 5 5 0 0 1 0 5 Z" /></g>',
+'<g id="d"><path d="M 10,0 L 10,5 A 5 5 0 0 1 5 0 Z" /><path d="M 10,10 L 5,10 A 5 5 0 0 1 10 5 Z" /><path d="M 0,0 L 5,0 A 5 5 0 0 1 0 5 Z" /></g>',
+'<g id="e"><path d="M 0,10 L 0,5 A 5 5 0 0 1 5 10 Z" /><path d="M 10,10 L 5,10 A 5 5 0 0 1 10 5 Z" /><path d="M 0,0 L 5,0 A 5 5 0 0 1 0 5 Z" /></g>',
+'<g id="f"><path d="M 10,0 L 10,5 A 5 5 0 0 1 5 0 Z" /><path d="M 0,10 L 0,5 A 5 5 0 0 1 5 10 Z" /><path d="M 10,10 L 5,10 A 5 5 0 0 1 10 5 Z" /><path d="M 0,0 L 5,0 A 5 5 0 0 1 0 5 Z" /></g>'
 )
 )
 
@@ -715,6 +734,7 @@ fun5 <- function(string, type="default", n=8, col="black", bg="white") {
     svg
 }
 
+writeLines(fun5("aaa", "pies", col="blue"), "test.svg")
 writeLines(fun5("aaa", "squares", col="blue"), "test.svg")
 writeLines(fun5("aaa", "triangles", col="blue"), "test.svg")
 writeLines(fun5("aaa", "default", col="blue"), "test.svg")
@@ -790,3 +810,118 @@ fun7 <- function(x) {
 
 writeLines(fun7("qwerty"), "test.svg")
 writeLines(fun7("s"), "test.svg")
+
+
+# https://github.com/MBalthasar/rHarmonics
+
+fun_X <- function(x, n=3) {
+    r <- 2*pi*x
+    N <- seq_len(n)
+    o <- matrix(0, length(x), 2+n*2)
+    colnames(o) <- c("intercept", "slope",
+        paste0("sin", N)[N], paste0("cos", N)[N])
+    o[,"intercept"] <- 1
+    o[,"slope"] <- r
+    for (i in N) {
+        o[,paste0("sin", i)] <- sin(i*r)
+        o[,paste0("cos", i)] <- cos(i*r)
+    }
+    o
+}
+fun_h <- function(x, y, n=3) {
+    d <- fun_X(x, n=n)
+    cf <- .lm.fit(d, y)$coefficients
+    names(cf) <- colnames(d)
+    cf
+}
+
+n <- 4
+x <- 1:64/(64/n)
+y <- sample(0:15, 64, replace=T) / 15
+
+d <- fun_X(x, n = length(x))
+
+# s <- c(1, 2, 4, 8, 16, 32)
+#s <- c(1, 2, 3, 4, 6, 8, 10, 12, 16)
+s <- seq(2, 32, 2)
+
+cf <- lapply(s, function(n) {
+  fun_h(x, y, n=n)
+})
+
+tmp <- sapply(cf, \(z) {
+  v <- drop(d[,names(z)] %*% z)
+  (v - min(v, na.rm = TRUE))/diff(range(v, na.rm = TRUE))
+})
+tmp <- cbind(tmp, y)
+
+tmp2 <- cbind(tmp[,1])
+for (i in 2:ncol(tmp)) {
+  p <- tmp2[,ncol(tmp2)]
+  k <- tmp[,i] # * i
+  d <- max(p-k)
+  tmp2 <- cbind(tmp2, k+d)
+  # tmp2 <- cbind(tmp2, k)
+}
+tmp2 <- tmp2[,rev(seq_len(ncol(tmp2)))]
+
+## calculate polar coordinates
+rad <- (360 * seq_along(x)/length(x)) * (pi / 180)
+xy <- lapply(1:ncol(tmp2), function(i) {
+  pracma::pol2cart(cbind(rad, tmp2[,i]))
+})
+
+matplot(x, tmp2, type="l", lty=1)
+
+plot(x, y, ylim=c(0,ncol(tmp)), type="n")
+for (i in 1:ncol(tmp))
+  lines(x, tmp[,i]+i-1)
+
+col <- hcl.colors(ncol(tmp2), "viridis", rev=TRUE)
+plot(0,type="n",asp=1, xlim=c(-max(tmp2), max(tmp2)), ylim=c(-max(tmp2), max(tmp2)),
+  ann=FALSE, axes=FALSE)
+for (i in 1:length(xy))
+  polygon(xy[[i]], border=NA, col=col[i])
+
+# https://frontend.horse/articles/generative-grids/
+
+# triangle
+<svg width="50" height="50" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<defs>
+<g id="0"><polygon points="5 0, 0 8.66, 10 8.66"/></g>
+<g id="1"><polygon points="5 8.66, 0 0, 10 0"/></g>
+</defs>
+
+<g id="triangle" transform="rotate(180 20 17.32)">
+
+<g id="top">
+<use x="15" y="0" xlink:href="#0" fill="red" />
+<use x="10" y="8.66" xlink:href="#0" fill="red" />
+<use x="15" y="8.66" xlink:href="#1" fill="black" />
+<use x="20" y="8.66" xlink:href="#0" fill="red" />
+</g>
+
+<g id="left">
+<use x="5" y="17.32" xlink:href="#0" fill="blue" />
+<use x="0" y="25.98" xlink:href="#0" fill="blue" />
+<use x="5" y="25.98" xlink:href="#1" fill="green" />
+<use x="10" y="25.98" xlink:href="#0" fill="blue" />
+</g>
+
+<g id="right">
+<use x="25" y="17.32" xlink:href="#0" fill="black" />
+<use x="20" y="25.98" xlink:href="#0" fill="red" />
+<use x="25" y="25.98" xlink:href="#1" fill="green" />
+<use x="30" y="25.98" xlink:href="#0" fill="blue" />
+</g>
+
+<g id="mid">
+<use x="10" y="17.32" xlink:href="#1" fill="purple" />
+<use x="20" y="17.32" xlink:href="#1" fill="pink" />
+<use x="15" y="25.98" xlink:href="#1" fill="orange" />
+<use x="15" y="17.32" xlink:href="#0" fill="yellow" />
+</g>
+
+</g>
+
+</svg>
