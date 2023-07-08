@@ -977,14 +977,16 @@ get_hash <- function(x) {
     hash <- sapply(seq_len(nchar(hash)), function(z) substr(hash, z, z))
     sapply(hash, function(z) which(c(0:9, letters[1:6]) == z))
 }
-hash <- get_hash("psolymos")
+hash <- get_hash("solymos")
 
 c0 <- 0.6 * (hash[1] - 1) / 15 # main
 c1 <- 0.4 * (hash[2:4] - 1) / 15 # main
 c2 <- 0.2 * (hash[5:28] - 1) / 15 # cells
+h <- pmin(1, pmax(0, c0 + rep(c1, each=8) + c2))
+summary(h)
 
 col <- hsv(
-    h = (c0 + rep(c1, each=8) + c2), 
+    h = h, 
     s = rep(0.6, 24), 
     v = rep(c(1, 0.9, 0.75), each = 8))
 
