@@ -886,42 +886,151 @@ for (i in 1:length(xy))
 # https://frontend.horse/articles/generative-grids/
 
 # triangle
-<svg width="50" height="50" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+# <svg width="50" height="50" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+# <defs>
+# <g id="0"><polygon points="5 0, 0 8.66, 10 8.66"/></g>
+# <g id="1"><polygon points="5 8.66, 0 0, 10 0"/></g>
+# </defs>
+
+# <g id="triangle" transform="rotate(180 20 17.32)">
+
+# <g id="top">
+# <use x="15" y="0" xlink:href="#0" fill="red" />
+# <use x="10" y="8.66" xlink:href="#0" fill="red" />
+# <use x="15" y="8.66" xlink:href="#1" fill="black" />
+# <use x="20" y="8.66" xlink:href="#0" fill="red" />
+# </g>
+
+# <g id="left">
+# <use x="5" y="17.32" xlink:href="#0" fill="blue" />
+# <use x="0" y="25.98" xlink:href="#0" fill="blue" />
+# <use x="5" y="25.98" xlink:href="#1" fill="green" />
+# <use x="10" y="25.98" xlink:href="#0" fill="blue" />
+# </g>
+
+# <g id="right">
+# <use x="25" y="17.32" xlink:href="#0" fill="black" />
+# <use x="20" y="25.98" xlink:href="#0" fill="red" />
+# <use x="25" y="25.98" xlink:href="#1" fill="green" />
+# <use x="30" y="25.98" xlink:href="#0" fill="blue" />
+# </g>
+
+# <g id="mid">
+# <use x="10" y="17.32" xlink:href="#1" fill="purple" />
+# <use x="20" y="17.32" xlink:href="#1" fill="pink" />
+# <use x="15" y="25.98" xlink:href="#1" fill="orange" />
+# <use x="15" y="17.32" xlink:href="#0" fill="yellow" />
+# </g>
+
+# </g>
+
+# </svg>
+
+
+# <svg width="40" height="40" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+# <defs>
+# <g id="0"><polygon points="10 0, 0 5, 10 10"/></g>
+# <g id="1"><polygon points="0 0, 10 5, 0 10"/></g>
+# </defs>
+# <g id="topleft">
+# <use x="0" y="5" xlink:href="#0" fill="black" />
+# <use x="10" y="5" xlink:href="#1" fill="red" />
+# <use x="10" y="0" xlink:href="#0" fill="green" />
+# <use x="10" y="10" xlink:href="#0" fill="blue" />
+# </g>
+# <g id="topright">
+# <use x="20" y="10" xlink:href="#1" fill="black" />
+# <use x="20" y="0" xlink:href="#1" fill="red" />
+# <use x="20" y="5" xlink:href="#0" fill="green" />
+# <use x="30" y="5" xlink:href="#1" fill="blue" />
+# </g>
+# <g id="lefttop">
+# <use x="0" y="10" xlink:href="#1" fill="black" />
+# <use x="0" y="20" xlink:href="#1" fill="red" />
+# <use x="0" y="15" xlink:href="#0" fill="green" />
+# <use x="10" y="15" xlink:href="#1" fill="blue" />
+# </g>
+# <g id="leftbottom">
+# <use x="0" y="25" xlink:href="#0" fill="black" />
+# <use x="10" y="25" xlink:href="#1" fill="red" />
+# <use x="10" y="20" xlink:href="#0" fill="green" />
+# <use x="10" y="30" xlink:href="#0" fill="blue" />
+# </g>
+# <g id="rightbottom">
+# <use x="20" y="20" xlink:href="#1" fill="black" />
+# <use x="20" y="30" xlink:href="#1" fill="red" />
+# <use x="20" y="25" xlink:href="#0" fill="green" />
+# <use x="30" y="25" xlink:href="#1" fill="blue" />
+# </g>
+# <g id="righttop">
+# <use x="20" y="15" xlink:href="#0" fill="black" />
+# <use x="30" y="15" xlink:href="#1" fill="red" />
+# <use x="30" y="10" xlink:href="#0" fill="green" />
+# <use x="30" y="20" xlink:href="#0" fill="blue" />
+# </g>
+# </svg>
+
+# haxagon colors
+
+get_hash <- function(x) {
+    hash <- digest::digest(enc2utf8(x), algo="sha256", serialize=FALSE)
+    hash <- sapply(seq_len(nchar(hash)), function(z) substr(hash, z, z))
+    sapply(hash, function(z) which(c(0:9, letters[1:6]) == z))
+}
+hash <- get_hash("psolymos")
+
+c0 <- 0.6 * (hash[1] - 1) / 15 # main
+c1 <- 0.4 * (hash[2:4] - 1) / 15 # main
+c2 <- 0.2 * (hash[5:28] - 1) / 15 # cells
+
+col <- hsv(
+    h = (c0 + rep(c1, each=8) + c2), 
+    s = rep(0.6, 24), 
+    v = rep(c(1, 0.9, 0.75), each = 8))
+
+#plot(rep(1:3,each=8), rep(1:8, 3), col=col, pch=19, cex=3)
+
+svg <- c('<svg width="40" height="40" shape-rendering="crispedges" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
 <defs>
-<g id="0"><polygon points="5 0, 0 8.66, 10 8.66"/></g>
-<g id="1"><polygon points="5 8.66, 0 0, 10 0"/></g>
+<g id="0"><polygon points="10 0, 0 5, 10 10"/></g>
+<g id="1"><polygon points="0 0, 10 5, 0 10"/></g>
 </defs>
-
-<g id="triangle" transform="rotate(180 20 17.32)">
-
-<g id="top">
-<use x="15" y="0" xlink:href="#0" fill="red" />
-<use x="10" y="8.66" xlink:href="#0" fill="red" />
-<use x="15" y="8.66" xlink:href="#1" fill="black" />
-<use x="20" y="8.66" xlink:href="#0" fill="red" />
+<g id="topleft">
+<use x="0" y="5" xlink:href="#0" fill="', col[1], '" />
+<use x="10" y="5" xlink:href="#1" fill="', col[2], '" />
+<use x="10" y="0" xlink:href="#0" fill="', col[3], '" />
+<use x="10" y="10" xlink:href="#0" fill="', col[4], '" />
 </g>
-
-<g id="left">
-<use x="5" y="17.32" xlink:href="#0" fill="blue" />
-<use x="0" y="25.98" xlink:href="#0" fill="blue" />
-<use x="5" y="25.98" xlink:href="#1" fill="green" />
-<use x="10" y="25.98" xlink:href="#0" fill="blue" />
+<g id="topright">
+<use x="20" y="10" xlink:href="#1" fill="', col[5], '" />
+<use x="20" y="0" xlink:href="#1" fill="', col[6], '" />
+<use x="20" y="5" xlink:href="#0" fill="', col[7], '" />
+<use x="30" y="5" xlink:href="#1" fill="', col[8], '" />
 </g>
-
-<g id="right">
-<use x="25" y="17.32" xlink:href="#0" fill="black" />
-<use x="20" y="25.98" xlink:href="#0" fill="red" />
-<use x="25" y="25.98" xlink:href="#1" fill="green" />
-<use x="30" y="25.98" xlink:href="#0" fill="blue" />
+<g id="lefttop">
+<use x="0" y="10" xlink:href="#1" fill="', col[9], '" />
+<use x="0" y="20" xlink:href="#1" fill="', col[10], '" />
+<use x="0" y="15" xlink:href="#0" fill="', col[11], '" />
+<use x="10" y="15" xlink:href="#1" fill="', col[12], '" />
 </g>
-
-<g id="mid">
-<use x="10" y="17.32" xlink:href="#1" fill="purple" />
-<use x="20" y="17.32" xlink:href="#1" fill="pink" />
-<use x="15" y="25.98" xlink:href="#1" fill="orange" />
-<use x="15" y="17.32" xlink:href="#0" fill="yellow" />
+<g id="leftbottom">
+<use x="0" y="25" xlink:href="#0" fill="', col[13], '" />
+<use x="10" y="25" xlink:href="#1" fill="', col[14], '" />
+<use x="10" y="20" xlink:href="#0" fill="', col[15], '" />
+<use x="10" y="30" xlink:href="#0" fill="', col[16], '" />
 </g>
-
+<g id="rightbottom">
+<use x="20" y="20" xlink:href="#1" fill="', col[17], '" />
+<use x="20" y="30" xlink:href="#1" fill="', col[18], '" />
+<use x="20" y="25" xlink:href="#0" fill="', col[19], '" />
+<use x="30" y="25" xlink:href="#1" fill="', col[20], '" />
 </g>
-
+<g id="righttop">
+<use x="20" y="15" xlink:href="#0" fill="', col[21], '" />
+<use x="30" y="15" xlink:href="#1" fill="', col[22], '" />
+<use x="30" y="10" xlink:href="#0" fill="', col[23], '" />
+<use x="30" y="20" xlink:href="#0" fill="', col[24], '" />
+</g>
 </svg>
+')
+writeLines(paste0(svg,collapse=""), "test.svg")
